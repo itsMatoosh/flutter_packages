@@ -205,7 +205,7 @@ public class SocialShareUtil {
     }
 
 
-    public String shareToInstagramStory(String appId, String stickerImage, String backgroundImage, String backgroundTopColor, String backgroundBottomColor, String attributionURL, Context activity) {
+    public String shareToInstagramStory(String appId, String stickerImage, String backgroundImage, String backgroundVideo, String backgroundTopColor, String backgroundBottomColor, String attributionURL, Context activity) {
 
         try {
 
@@ -219,9 +219,15 @@ public class SocialShareUtil {
                 shareIntent.putExtra("interactive_asset_uri", stickerImageUri);
                 activity.grantUriPermission("com.instagram.android", stickerImageUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
             }
+            if (backgroundVideo != null) {
+                File file1 = new File(backgroundVideo);
+                Uri backgroundVideoUri = FileProvider.getUriForFile(activity, activity.getApplicationContext().getPackageName() + ".provider", file1);
+                shareIntent.setDataAndType(backgroundVideoUri, getMimeTypeOfFile(backgroundVideo));
+                activity.grantUriPermission("com.instagram.android", backgroundVideoUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            }
             if (backgroundImage != null) {
-                File file1 = new File(backgroundImage);
-                Uri backgroundImageUri = FileProvider.getUriForFile(activity, activity.getApplicationContext().getPackageName() + ".provider", file1);
+                File file2 = new File(backgroundImage);
+                Uri backgroundImageUri = FileProvider.getUriForFile(activity, activity.getApplicationContext().getPackageName() + ".provider", file2);
                 shareIntent.setDataAndType(backgroundImageUri, getMimeTypeOfFile(backgroundImage));
                 activity.grantUriPermission("com.instagram.android", backgroundImageUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
             }
