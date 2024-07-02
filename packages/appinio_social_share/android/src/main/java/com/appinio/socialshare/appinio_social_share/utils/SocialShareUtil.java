@@ -208,9 +208,7 @@ public class SocialShareUtil {
     public String shareToInstagramStory(String appId, String stickerImage, String backgroundImage, String backgroundVideo, String backgroundTopColor, String backgroundBottomColor, String attributionURL, Context activity) {
 
         try {
-
             Intent shareIntent = new Intent(INSTAGRAM_STORY_PACKAGE);
-            shareIntent.setType("image/*");
             shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             shareIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             if (stickerImage != null) {
@@ -224,8 +222,7 @@ public class SocialShareUtil {
                 Uri backgroundVideoUri = FileProvider.getUriForFile(activity, activity.getApplicationContext().getPackageName() + ".provider", file1);
                 shareIntent.setDataAndType(backgroundVideoUri, getMimeTypeOfFile(backgroundVideo));
                 activity.grantUriPermission("com.instagram.android", backgroundVideoUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            }
-            if (backgroundImage != null) {
+            } else if (backgroundImage != null) {
                 File file2 = new File(backgroundImage);
                 Uri backgroundImageUri = FileProvider.getUriForFile(activity, activity.getApplicationContext().getPackageName() + ".provider", file2);
                 shareIntent.setDataAndType(backgroundImageUri, getMimeTypeOfFile(backgroundImage));
