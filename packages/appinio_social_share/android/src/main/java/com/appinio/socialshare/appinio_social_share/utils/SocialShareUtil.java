@@ -220,7 +220,7 @@ public class SocialShareUtil {
             if (backgroundVideo != null) {
                 File file1 = new File(backgroundVideo);
                 Uri backgroundVideoUri = FileProvider.getUriForFile(activity, activity.getApplicationContext().getPackageName() + ".provider", file1);
-                shareIntent.setDataAndType(backgroundVideoUri, MEDIA_TYPE_VIDEO);
+                shareIntent.setDataAndType(backgroundVideoUri, "video/mp4");
                 activity.grantUriPermission("com.instagram.android", backgroundVideoUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
             } else if (backgroundImage != null) {
                 File file2 = new File(backgroundImage);
